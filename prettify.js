@@ -1573,12 +1573,26 @@ var prettyPrint;
             // 1-indexed number of the first line.
             var lineNums = attrs['linenums'];
             if (!(lineNums = lineNums === 'true' || +lineNums)) {
-              lineNums = className.match(/\blinenums\b(?::(\d+))?/);
-              lineNums =
-                lineNums
-                ? lineNums[1] && lineNums[1].length
-                  ? +lineNums[1] : true
-                : false;
+              lineNums = className.match(/\blinenums\b(?::(.+))?/);
+
+              // true of default lineNumbs
+              if (lineNums) {
+                if (lineNums[1] && lineNums[1].length) {
+                  if (lineNums[1] === 'none') {
+                    lineNums = false;
+                  }
+                  else {
+                    lineNums = +lineNums[1];
+                  }
+                }
+                else {
+                  lineNums = true;
+                }
+              }
+              else {
+                lineNums = true;
+              }
+
             }
             if (lineNums) { numberLines(cs, lineNums, preformatted); }
 
