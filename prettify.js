@@ -1128,7 +1128,7 @@ var prettyPrint;
       }
     });
 
-    console.log(targets);
+//    console.log(targets);
 
     var ul = node.getElementsByClassName("linenums")[0];
 
