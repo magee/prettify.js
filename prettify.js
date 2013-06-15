@@ -1110,6 +1110,34 @@ var prettyPrint;
   
     node.appendChild(ol);
   }
+
+  function hilightLines(node, hilight) {
+    var targets = [];
+    hilight.split(',').forEach(function(elm) {
+      if (elm.indexOf('-') != -1) {
+        var values = elm.split('-');
+        var start = Number(values[0]);
+        var end   = Number(values[1]);
+
+        for (var i=start; i<=end; ++i) {
+          targets.push(i);
+        }
+      }
+      else {
+       targets.push(Number(elm));
+      }
+    });
+
+    console.log(targets);
+
+    var ul = node.getElementsByClassName("linenums")[0];
+
+    targets.forEach(function(elm) {
+      ul.children[elm-1].classList.add('hilight');
+    });
+
+  }
+
   /**
    * Breaks {@code job.sourceCode} around style boundaries in
    * {@code job.decorations} and modifies {@code job.sourceNode} in place.
@@ -1595,6 +1623,12 @@ var prettyPrint;
 
             }
             if (lineNums) { numberLines(cs, lineNums, preformatted); }
+
+            // hilight
+            var hilight = cs.dataset["hilight"];
+            if (hilight) { 
+              hilightLines(cs, hilight);
+            }
 
             // do the pretty printing
             prettyPrintingJob = {

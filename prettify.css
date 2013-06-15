@@ -28,6 +28,9 @@ ol.linenums li {
   text-shadow: 0 1px 0 #fff;
 }
 
+li.hilight {
+  background-color: hsla(220, 100%, 80%, 0.5);
+}
 
 
 /*
